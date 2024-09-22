@@ -3,25 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video</title>
+    <title>Video Resumen</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            font-family: Arial, sans-serif;
         }
+
+        #video-container {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
         iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             border: none;
         }
+
+        #play-button {
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: #ff0000;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #play-button:hover {
+            background-color: #cc0000;
+        }
     </style>
 </head>
 <body>
-    <iframe src="https://www.youtube.com/embed/c-ovb19LrJE?autoplay=1&fullscreen=1" allow="autoplay; fullscreen"></iframe>
+
+    <!-- Pantalla negra con el botón -->
+    <button id="play-button">¡Quiero ver el resumen!!!!111!!!1!</button>
+
+    <!-- Contenedor del video que se mostrará después de hacer clic en el botón -->
+    <div id="video-container">
+        <iframe id="video" src="https://www.youtube.com/embed/c-ovb19LrJE?autoplay=1" allow="autoplay; fullscreen"></iframe>
+    </div>
+
+    <script>
+        const playButton = document.getElementById('play-button');
+        const videoContainer = document.getElementById('video-container');
+        const video = document.getElementById('video');
+
+        // Función para activar pantalla completa y mostrar el video
+        playButton.addEventListener('click', () => {
+            // Ocultar el botón
+            playButton.style.display = 'none';
+
+            // Mostrar el contenedor del video
+            videoContainer.style.display = 'block';
+
+            // Poner la página en pantalla completa
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari y Opera
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                document.documentElement.msRequestFullscreen();
+            }
+
+            // Iniciar el video en autoplay en pantalla completa
+            video.src += "&autoplay=1";
+        });
+    </script>
+
 </body>
 </html>
